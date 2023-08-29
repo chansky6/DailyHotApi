@@ -41,6 +41,7 @@ const cacheData = async (cacheKey, url, callGetData) => {
     const response = await axios.get(url);
     const data = callGetData(response.data.data.realtime);
     updateTime = new Date().toISOString();
+    await del(cacheKey);
     await set(cacheKey, data);
     console.log("缓存微博热搜数据成功");
   } catch (error) {
