@@ -40,6 +40,13 @@ const getData = (data) => {
   });
 };
 
+// 初始化缓存
+cacheData();
+
+// 每五分钟执行一次缓存操作
+const interval = 10 * 1000; // 五分钟的毫秒数
+setInterval(cacheData, interval);
+
 // 微博热搜
 weiboRouter.get("/weibo", async (ctx) => {
   console.log("获取微博热搜");
