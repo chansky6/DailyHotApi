@@ -36,7 +36,7 @@ const del = async (key) => {
 };
 
 // 缓存数据
-const cacheData = async (url, callGetData) => {
+const cacheData = async (cacheKey, url, callGetData) => {
   try {
     const response = await axios.get(url);
     const data = callGetData(response.data.data.realtime);
