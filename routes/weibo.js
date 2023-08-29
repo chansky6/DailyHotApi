@@ -54,8 +54,6 @@ const getData = (data) => {
 //   }
 // };
 
-// 初始化缓存
-startCaching();
 
 // 每五分钟执行一次缓存操作
 const interval = 10 * 1000; // 五分钟的毫秒数

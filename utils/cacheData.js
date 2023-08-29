@@ -51,6 +51,7 @@ const startCaching = async (url, cacheKey, getData) => {
   } catch (error) {
     console.error("缓存微博热搜数据失败", error);
   }
+  return updateTime;
 };
 
 
