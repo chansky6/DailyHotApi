@@ -35,9 +35,37 @@ const del = async (key) => {
   return cache.del(key);
 };
 
+/**
+ * 
+ * @param {*} url 
+ * @param {*} cacheKey 
+ * @param {*} interval 
+ */
+const startCaching = (url, cacheKey, interval, getData) => {
+  // 缓存数据
+  const cacheData = async () => {
+    try {
+      const response = await axios.get(url);
+      const data = getData(response.data.data.realtime);
+      updateTime = new Date().toISOString();
+      await set(cacheKey, data);
+      console.log("缓存微博热搜数据成功");
+    } catch (error) {
+      console.error("缓存微博热搜数据失败", error);
+    }
+  };
+
+  // 初始化缓存
+  cacheData();
+
+  // 每 interval 毫秒执行一次缓存操作
+  setInterval(cacheData, interval);
+};
+
 
 module.exports = {
   get,
   set,
   del,
+  startCaching, 
 };
