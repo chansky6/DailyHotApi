@@ -45,9 +45,9 @@ const startCaching = async (key, value) => {
   try {
     updateTime = new Date().toISOString();
     await set(key, value);
-    console.log("缓存微博热搜数据成功");
+    console.log("缓存"+ key + "数据成功");
   } catch (error) {
-    console.error("缓存微博热搜数据失败", error);
+    console.error("缓存"+ key + "数据失败", error);
   }
   return updateTime;
 };

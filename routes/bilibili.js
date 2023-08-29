@@ -41,9 +41,7 @@ const getData = (data) => {
 const fetchDataAndUpdate = async () => {
   const response = await axios.get(url);
   const data = getData(response.data.data.realtime);
-  const updateTime = await startCaching(cacheKey, data);
-  // 在这里处理 updateTime 的逻辑
-  console.log("更新时间：", updateTime);
+  updateTime = await startCaching(cacheKey, data);
 };
 
 // 每五分钟执行一次缓存操作
