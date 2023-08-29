@@ -37,6 +37,24 @@ const getData = (data) => {
   });
 };
 
+// 从服务器拉取更新数据
+const fetchDataAndUpdate = async () => {
+  const response = await axios.get(url);
+  const data = getData(response.data.data.realtime);
+  const updateTime = await startCaching(cacheKey, data);
+  // 在这里处理 updateTime 的逻辑
+  console.log("更新时间：", updateTime);
+};
+
+// 每五分钟执行一次缓存操作
+const interval = 5 * 60 * 1000;
+
+// 立即执行一次回调函数
+fetchDataAndUpdate();
+
+// 创建定时器
+setInterval(fetchDataAndUpdate, interval);
+
 // 哔哩哔哩热门榜
 bilibiliRouter.get("/bilibili", async (ctx) => {
   console.log("获取哔哩哔哩热门榜");
@@ -48,9 +66,7 @@ bilibiliRouter.get("/bilibili", async (ctx) => {
       // 如果缓存中不存在数据
       console.log("从服务端重新获取哔哩哔哩热门榜");
       // 从服务器拉取数据
-      const response = await axios.get(url);
-      data = getData(response.data.data.list);
-      updateTime = new Date().toISOString();
+      fetchDataAndUpdate();
       // 将数据写入缓存
       await set(cacheKey, data);
     }

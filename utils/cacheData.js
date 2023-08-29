@@ -36,15 +36,15 @@ const del = async (key) => {
 };
 
 /**
- * 
- * @param {*} url 
- * @param {*} cacheKey 
- * @param {*} interval 
+ * 定时自动缓存
+ * @param {*} key 缓存键值
+ * @param {*} value 数据
+ * @returns 
  */
-const startCaching = async (cacheKey, data) => {
+const startCaching = async (key, value) => {
   try {
     updateTime = new Date().toISOString();
-    await set(cacheKey, data);
+    await set(key, value);
     console.log("缓存微博热搜数据成功");
   } catch (error) {
     console.error("缓存微博热搜数据失败", error);

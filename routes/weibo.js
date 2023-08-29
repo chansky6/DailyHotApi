@@ -40,6 +40,7 @@ const getData = (data) => {
   });
 };
 
+// 从服务器拉取更新数据
 const fetchDataAndUpdate = async () => {
   const response = await axios.get(url);
   const data = getData(response.data.data.realtime);
@@ -68,9 +69,7 @@ weiboRouter.get("/weibo", async (ctx) => {
       // 如果缓存中不存在数据
       console.log("从服务端重新获取微博热搜");
       // 从服务器拉取数据
-      const response = await axios.get(url);
-      data = getData(response.data.data.realtime);
-      updateTime = new Date().toISOString();
+      fetchDataAndUpdate();
       if (!data) {
         ctx.body = {
           code: 500,
