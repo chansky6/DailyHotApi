@@ -58,14 +58,9 @@ const getData = (data) => {
 // 每五分钟执行一次缓存操作
 const interval = 10 * 1000; // 五分钟的毫秒数
 setInterval(async () => {
-  const result = await startCaching(url, cacheKey, getData);
-  // 根据 result 进行相应的处理
-  if (result.success) {
-    console.log("成功缓存数据，更新时间：", result.updateTime);
-    updateTime = result.updateTime; // 更新 updateTime 变量
-  } else {
-    console.error("缓存数据失败，错误信息：", result.error);
-  }
+  updateTime = await startCaching(url, cacheKey, getData);
+  // 在这里处理 updateTime 的逻辑
+  console.log("更新时间：", updateTime);
 }, interval);
 
 // 微博热搜
