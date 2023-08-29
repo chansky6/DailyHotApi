@@ -51,4 +51,5 @@ module.exports = {
   get,
   set,
   del,
+  cacheData,
 };
