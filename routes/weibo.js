@@ -57,7 +57,7 @@ const getData = (data) => {
 
 // 每五分钟执行一次缓存操作
 const interval = 10 * 1000; // 五分钟的毫秒数
-setInterval(() => startCaching(url, cacheKey, getData), interval);
+updateTime = setInterval(() => startCaching(url, cacheKey, getData), interval);
 
 // 微博热搜
 weiboRouter.get("/weibo", async (ctx) => {
