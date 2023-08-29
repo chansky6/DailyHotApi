@@ -48,7 +48,7 @@ const fetchDataAndUpdate = async () => {
 };
 
 // 每五分钟执行一次缓存操作
-const interval = 5 * 60 * 1000;
+const interval = 10 * 1000;
 
 // 立即执行一次回调函数
 fetchDataAndUpdate();
