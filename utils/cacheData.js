@@ -1,4 +1,5 @@
 const NodeCache = require("node-cache");
+const axios = require("axios");
 
 const cache = new NodeCache({
   stdTTL: 1800, // 缓存默认过期时间（单位秒）
@@ -35,8 +36,10 @@ const del = async (key) => {
 };
 
 // 缓存数据
-const cacheData = async (cacheKey, data) => {
+const cacheData = async (url, callGetData) => {
   try {
+    const response = await axios.get(url);
+    const data = callGetData(response.data.data.realtime);
     updateTime = new Date().toISOString();
     await set(cacheKey, data);
     console.log("缓存微博热搜数据成功");
