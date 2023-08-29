@@ -55,7 +55,7 @@ const getData = (data) => {
 // };
 
 // 启动缓存
-startCaching(url, cacheKey, getData);
+startCaching(cacheKey, data);
 
 // 每五分钟执行一次缓存操作
 const interval = 5 * 60 * 1000; // 五分钟的毫秒数

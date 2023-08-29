@@ -41,7 +41,7 @@ const del = async (key) => {
  * @param {*} cacheKey 
  * @param {*} interval 
  */
-const startCaching = async (data) => {
+const startCaching = async (cacheKey, data) => {
   try {
     updateTime = new Date().toISOString();
     await set(cacheKey, data);
