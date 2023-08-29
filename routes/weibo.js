@@ -2,7 +2,7 @@ const Router = require("koa-router");
 const weiboRouter = new Router();
 const axios = require("axios");
 // const cheerio = require("cheerio");
-const { get, set, del, cacheData } = require("../utils/cacheData");
+const { get, set, del } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
@@ -40,12 +40,27 @@ const getData = (data) => {
   });
 };
 
+
+// 缓存数据
+const cacheData = async () => {
+  try {
+    const response = await axios.get(url);
+    const data = callGetData(response.data.data.realtime);
+    updateTime = new Date().toISOString();
+    await del(cacheKey);
+    await set(cacheKey, data);
+    console.log("缓存微博热搜数据成功");
+  } catch (error) {
+    console.error("缓存微博热搜数据失败", error);
+  }
+};
+
 // 初始化缓存
-cacheData(cacheKey, url, getData);
+cacheData();
 
 // 每五分钟执行一次缓存操作
 const interval = 20 * 1000; // 五分钟的毫秒数
-setInterval(() => cacheData(cacheKey, url, getData), interval);
+setInterval(cacheData, interval);
 
 // 微博热搜
 weiboRouter.get("/weibo", async (ctx) => {
