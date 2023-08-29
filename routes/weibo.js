@@ -41,11 +41,11 @@ const getData = (data) => {
 };
 
 // 初始化缓存
-cacheData(() => getData(data));
+cacheData(cacheKey, () => getData(data));
 
 // 每五分钟执行一次缓存操作
 const interval = 20 * 1000; // 五分钟的毫秒数
-setInterval(() => cacheData(() => getData(data)), interval);
+setInterval(() => cacheData(cacheKey, () => getData(data)), interval);
 
 // 微博热搜
 weiboRouter.get("/weibo", async (ctx) => {

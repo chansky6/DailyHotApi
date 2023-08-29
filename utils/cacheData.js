@@ -35,7 +35,7 @@ const del = async (key) => {
 };
 
 // 缓存数据
-const cacheData = async (data) => {
+const cacheData = async (cacheKey, data) => {
   try {
     updateTime = new Date().toISOString();
     await set(cacheKey, data);
