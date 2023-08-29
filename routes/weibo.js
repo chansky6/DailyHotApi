@@ -54,11 +54,15 @@ const getData = (data) => {
 //   }
 // };
 
+// 启动缓存
+startCaching(url, cacheKey, getData);
 
 // 每五分钟执行一次缓存操作
-const interval = 10 * 1000; // 五分钟的毫秒数
+const interval = 5 * 60 * 1000; // 五分钟的毫秒数
 setInterval(async () => {
-  updateTime = await startCaching(url, cacheKey, getData);
+  const response = await axios.get(url);
+  data = getData(response.data.data.realtime);
+  updateTime = await startCaching(cacheKey, data);
   // 在这里处理 updateTime 的逻辑
   console.log("更新时间：", updateTime);
 }, interval);
