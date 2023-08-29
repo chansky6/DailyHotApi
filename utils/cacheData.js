@@ -34,6 +34,19 @@ const del = async (key) => {
   return cache.del(key);
 };
 
+// 缓存数据
+const cacheData = async (url, callGetData) => {
+  try {
+    const response = await axios.get(url);
+    const data = callGetData(response.data.data.realtime);
+    updateTime = new Date().toISOString();
+    await set(cacheKey, data);
+    console.log("缓存微博热搜数据成功");
+  } catch (error) {
+    console.error("缓存微博热搜数据失败", error);
+  }
+};
+
 module.exports = {
   get,
   set,
