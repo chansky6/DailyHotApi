@@ -2,7 +2,7 @@ const Router = require("koa-router");
 const weiboRouter = new Router();
 const axios = require("axios");
 // const cheerio = require("cheerio");
-const { get, set, del } = require("../utils/cacheData");
+const { get, set, del, cacheData } = require("../utils/cacheData");
 
 // 接口信息
 const routerInfo = {
