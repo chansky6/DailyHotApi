@@ -40,23 +40,6 @@ const getData = (data) => {
   });
 };
 
-
-// // 缓存数据
-// const cacheData = async () => {
-//   try {
-//     const response = await axios.get(url);
-//     const data = getData(response.data.data.realtime);
-//     updateTime = new Date().toISOString();
-//     await set(cacheKey, data);
-//     console.log("缓存微博热搜数据成功");
-//   } catch (error) {
-//     console.error("缓存微博热搜数据失败", error);
-//   }
-// };
-
-// 启动缓存
-startCaching(cacheKey, data);
-
 // 每五分钟执行一次缓存操作
 const interval = 5 * 60 * 1000; // 五分钟的毫秒数
 setInterval(async () => {
