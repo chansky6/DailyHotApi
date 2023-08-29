@@ -40,15 +40,22 @@ const getData = (data) => {
   });
 };
 
-// 每五分钟执行一次缓存操作
-const interval = 5 * 60 * 1000; // 五分钟的毫秒数
-setInterval(async () => {
+const fetchDataAndUpdate = async () => {
   const response = await axios.get(url);
-  data = getData(response.data.data.realtime);
-  updateTime = await startCaching(cacheKey, data);
+  const data = getData(response.data.data.realtime);
+  const updateTime = await startCaching(cacheKey, data);
   // 在这里处理 updateTime 的逻辑
   console.log("更新时间：", updateTime);
-}, interval);
+};
+
+// 每五分钟执行一次缓存操作
+const interval = 5 * 60 * 1000;
+
+// 立即执行一次回调函数
+fetchDataAndUpdate();
+
+// 创建定时器
+setInterval(fetchDataAndUpdate, interval);
 
 // 微博热搜
 weiboRouter.get("/weibo", async (ctx) => {
