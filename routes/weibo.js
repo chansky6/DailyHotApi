@@ -45,7 +45,7 @@ const getData = (data) => {
 const cacheData = async () => {
   try {
     const response = await axios.get(url);
-    const data = callGetData(response.data.data.realtime);
+    const data = getData(response.data.data.realtime);
     updateTime = new Date().toISOString();
     await del(cacheKey);
     await set(cacheKey, data);
